@@ -8,9 +8,13 @@ class NavButton extends Component {
       <Navbar>
         <Nav>
 
-          <LinkContainer to='/ '>
-            <NavItem> HOME </NavItem>
-          </LinkContainer>
+          <Navbar.Brand>
+            <Navbar.Header>
+              <LinkContainer to='/'>
+                <NavItem> HOME </NavItem>
+              </LinkContainer>
+            </Navbar.Header>
+          </Navbar.Brand>
 
           <LinkContainer to='/schedule'>
             <NavItem> SCHEDULE </NavItem>

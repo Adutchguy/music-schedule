@@ -28,7 +28,6 @@ class App extends Component {
           <NavButtons />
 
           <Route exact path='/' component={Home}/>
-          <Route exact path='/ ' component={Home}/>
           <Route exact path='/schedule' component={Schedule}/>
           <Route exact path='/stats' component={SongStats}/>
           <Route exact path='/log' component={SongLog}/>
