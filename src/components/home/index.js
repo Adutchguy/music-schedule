@@ -18,7 +18,12 @@ class Home extends Component {
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
             <h3 className='home-header'> IBCF Music Scheduling App </h3>
+            <h4> Please Login To Manage Your<br/> Schedule and Availability </h4>
           </Col>
+        </Row>
+
+        <Row>
+
         </Row>
       </Grid>
     );
