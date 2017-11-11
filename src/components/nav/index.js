@@ -5,30 +5,33 @@ import {LinkContainer} from 'react-router-bootstrap';
 class NavButton extends Component {
   render() {
     return (
-      <Navbar>
-        <Nav>
+      <Navbar inverse collapseOnSelect>
 
+        <Navbar.Header>
           <Navbar.Brand>
-            <Navbar.Header>
-              <LinkContainer to='/'>
-                <NavItem> HOME </NavItem>
-              </LinkContainer>
-            </Navbar.Header>
+            <LinkContainer to='/'>
+              <a> HOME </a>
+            </LinkContainer>
           </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
 
-          <LinkContainer to='/schedule'>
-            <NavItem> SCHEDULE </NavItem>
-          </LinkContainer>
 
-          <LinkContainer to='/stats'>
-            <NavItem> SONG STATS </NavItem>
-          </LinkContainer>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <LinkContainer to='/schedule'>
+              <NavItem> SCHEDULE </NavItem>
+            </LinkContainer>
 
-          <LinkContainer to='/log'>
-            <NavItem> SONG LOG </NavItem>
-          </LinkContainer>
+            <LinkContainer to='/stats'>
+              <NavItem> SONG STATS </NavItem>
+            </LinkContainer>
 
-        </Nav>
+            <LinkContainer to='/log'>
+              <NavItem> SONG LOG </NavItem>
+            </LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     );
   }
