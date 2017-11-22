@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 
 import Home from '../home';
+import Login from '../login';
+import Signup from '../signup';
 import Landing from '../landing';
 import NavButtons from '../nav';
 import SongLog from '../song-log';
@@ -40,6 +42,8 @@ class App extends Component {
           />
 
           <Route exact path='/' component={Landing}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/signup' component={Signup}/>
           <Route exact path='/home' component={Home}/>
           <Route exact path='/schedule' component={Schedule}/>
           <Route exact path='/stats' component={SongStats}/>
