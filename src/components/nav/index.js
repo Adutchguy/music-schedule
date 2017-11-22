@@ -12,7 +12,7 @@ class NavButtons extends Component {
         {renderIf(!this.props.loggedIn)(
           <Navbar.Header>
             <Navbar.Brand>
-              <LinkContainer to='/home'>
+              <LinkContainer to='/login'>
                 <a onClick={this.props.handleLogin}> LOGIN </a>
               </LinkContainer>
             </Navbar.Brand>
