@@ -13,25 +13,9 @@ class LoginForm extends Component{
       checked: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.passwordValidation = this.passwordValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  passwordValidation() {
-    let pwd = this.state.password;
-    let psswd = /^(?=.*[0-9])(?=.*[!@#+=$%^&*])[a-zA-Z0-9!@#$+=%^&*]{6,16}$/;
-    let validation = psswd.test(pwd);
-    if(pwd.length > 0){
-      if(validation){
-        return 'success';
-      }
-      else {
-        return 'error';
-      }
-    } else{
-      return null;
-    }
-  }
 
   handleChange(e){
     e.target.type === 'checkbox' ?
@@ -61,12 +45,10 @@ class LoginForm extends Component{
               placeholder='EMAIL'
               onChange={this.handleChange}
             />
-            <FormControl.Feedback />
           </Col>
         </FormGroup>
 
         <FormGroup
-          validationState={this.passwordValidation()}
           controlId='login-form-password'
         >
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
@@ -79,7 +61,6 @@ class LoginForm extends Component{
               placeholder='PASSWORD'
               onChange={this.handleChange}
             />
-            <FormControl.Feedback />
           </Col>
         </FormGroup>
 
