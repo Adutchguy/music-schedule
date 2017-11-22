@@ -1,46 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-class NavButton extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loggedIn: false,
-    };
-
-    this.handleLogin = this.handleLogin.bind(this);
-  }
-
-  handleLogin(){
-    this.setState({loggedIn:!this.state.loggedIn});
-  }
-
+class NavButtons extends Component {
   render() {
     return (
       <Navbar inverse collapseOnSelect>
 
-        <Navbar.Header>
-          <Navbar.Brand>
-            <LinkContainer to='/'>
-              <a> HOME </a>
-            </LinkContainer>
-          </Navbar.Brand>
-          <Navbar.Toggle/>
-        </Navbar.Header>
-
-        {renderIf(!this.state.loggedIn)(
-          <Navbar.Collapse>
-            <Nav pullRight>
-              <NavItem onClick={this.handleLogin}> LOGIN </NavItem>
-            </Nav>
-          </Navbar.Collapse>
+        {renderIf(!this.props.loggedIn)(
+          <Navbar.Header>
+            <Navbar.Brand>
+              <LinkContainer to='/home'>
+                <a onClick={this.props.handleLogin}> LOGIN </a>
+              </LinkContainer>
+            </Navbar.Brand>
+          </Navbar.Header>
         )}
 
+        {renderIf(this.props.loggedIn)(
+          <Navbar.Header>
+            <Navbar.Brand>
+              <LinkContainer to='/home'>
+                <a> HOME </a>
+              </LinkContainer>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
+        )}
 
-        {renderIf(this.state.loggedIn)(
+        {renderIf(this.props.loggedIn)(
           <Navbar.Collapse>
             <Nav>
               <LinkContainer to='/schedule'>
@@ -54,9 +44,9 @@ class NavButton extends Component {
               <LinkContainer to='/log'>
                 <NavItem> SONG LOG </NavItem>
               </LinkContainer>
-              {renderIf(this.state.loggedIn)(
+              {renderIf(this.props.loggedIn)(
                 <LinkContainer to='/'>
-                  <NavItem onClick={this.handleLogin}> LOGOUT </NavItem>
+                  <NavItem onClick={this.props.handleLogin}> LOGOUT </NavItem>
                 </LinkContainer>
               )}
             </Nav>
@@ -68,4 +58,9 @@ class NavButton extends Component {
   }
 }
 
-export default NavButton;
+NavButtons.propTypes = {
+  handleLogin: PropTypes.func,
+  loggedIn: PropTypes.bool,
+};
+
+export default NavButtons;

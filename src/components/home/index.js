@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Grid,Row,Col,PageHeader} from 'react-bootstrap';
+import {Grid,Row,Col} from 'react-bootstrap';
 import './home.css';
 
 
@@ -11,14 +11,10 @@ class Home extends Component {
       <Grid fluid>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
-            <PageHeader className='home-header'> WELCOME </PageHeader>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
             <h3 className='home-header'> IBCF Music Scheduling App </h3>
-            <h4> Please Login To Manage Your<br/> Schedule and Availability </h4>
+            <h4>
+              Thank you for logging in! Please select a view from the dropdown menu.
+            </h4>
           </Col>
         </Row>
 
