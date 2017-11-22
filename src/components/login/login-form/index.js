@@ -1,5 +1,5 @@
 import './login-form.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Form,FormGroup,FormControl,ControlLabel,Col,Checkbox,Button,PageHeader} from 'react-bootstrap';
