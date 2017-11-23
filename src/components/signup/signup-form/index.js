@@ -1,19 +1,83 @@
 import './signup-form.css';
 // import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import renderIf from 'render-if';
 import React, { Component } from 'react';
-import {Form,FormGroup,FormControl,ControlLabel,Col,Checkbox,Button,PageHeader} from 'react-bootstrap';
+import {Form,FormGroup,FormControl,ControlLabel,Col,Button,PageHeader,Tooltip,Overlay} from 'react-bootstrap';
+
 
 class SignupForm extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: '',
-      checked: false,
+      email: '',
+      firstName: '',
+      lastName: '',
     };
+
     this.handleChange = this.handleChange.bind(this);
-    this.passwordValidation = this.passwordValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.emailValidation = this.emailValidation.bind(this);
+    this.passwordValidation = this.passwordValidation.bind(this);
+    this.usernameValidation = this.usernameValidation.bind(this);
+    this.lastNameValidation = this.lastNameValidation.bind(this);
+    this.firstNameValidation = this.firstNameValidation.bind(this);
+  }
+
+  usernameValidation(){
+    let length = this.state.username.length;
+    if(length > 0){
+      if(length >= 6){
+        return 'success';
+      } else{
+        return 'error';
+      }
+    } else{
+      return null;
+    }
+  }
+
+  emailValidation(){
+    let email = this.state.email;
+    let length = email.length;
+
+    if(length > 0){
+      if(email.includes('@') && email.includes('.')){
+        return 'success';
+      }else {
+        return 'error';
+      }
+    }else {
+      return null;
+    }
+  }
+
+  firstNameValidation(){
+    let length = this.state.firstName.length;
+    if(length > 0) {
+      if(length > 2){
+        return 'success';
+      }else {
+        return 'error';
+      }
+    } else {
+      return null;
+    }
+  }
+
+  lastNameValidation(){
+    let length = this.state.lastName.length;
+    if(length > 0) {
+      if(length > 2){
+        return 'success';
+      }else {
+        return 'error';
+      }
+    } else {
+      return null;
+    }
   }
 
   passwordValidation() {
@@ -33,9 +97,9 @@ class SignupForm extends Component{
   }
 
   handleChange(e){
-    e.target.type === 'checkbox' ?
-      this.setState({checked: e.target.checked}) :
-      this.setState({[e.target.type]: e.target.value});
+    e.target.name === 'checkbox' ?
+      this.setState({[e.target.name]: e.target.checked}) :
+      this.setState({[e.target.name]: e.target.value});
   }
 
   handleSubmit(e){
@@ -47,33 +111,42 @@ class SignupForm extends Component{
     return(
       <Form onSubmit={this.handleSubmit} className='signup-form' horizontal>
         <PageHeader className='signup-form-header'> SIGNUP </PageHeader>
+
+
         <FormGroup
+          validationState={this.usernameValidation()}
           controlId='signup-form-email'
         >
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
-            Email
+            * Username:
           </Col>
 
-          <Col sm={10} md={10} lg={10}>
+          <Col sm={10}>
             <FormControl
-              type='email'
-              placeholder='EMAIL'
+              ref='usernameForm'
+              name='username'
+              type='text'
+              placeholder='USERNAME'
               onChange={this.handleChange}
             />
             <FormControl.Feedback />
           </Col>
         </FormGroup>
 
+
+
         <FormGroup
           validationState={this.passwordValidation()}
           controlId='signup-form-password'
         >
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
-            Password
+            * Password:
           </Col>
 
-          <Col sm={10} md={10} lg={10}>
+          <Col sm={10}>
             <FormControl
+              ref='passwordForm'
+              name='password'
               type='password'
               placeholder='PASSWORD'
               onChange={this.handleChange}
@@ -82,29 +155,117 @@ class SignupForm extends Component{
           </Col>
         </FormGroup>
 
+
+
         <FormGroup
-          controlId='signup-form-checkbox'
+          validationState={this.emailValidation()}
+          controlId='signup-form-email'
         >
-          <Col smOffset={2} sm={10}>
-            <Checkbox
-              type='checkbox'
-              checked={this.state.checked}
+          <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
+            * Email:
+          </Col>
+
+          <Col sm={10}>
+            <FormControl
+              ref='emailForm'
+              name='email'
+              type='email'
+              placeholder='EMAIL'
               onChange={this.handleChange}
-            > Remember me
-            </Checkbox>
+            />
+            <FormControl.Feedback />
           </Col>
         </FormGroup>
+
+
+
+        <FormGroup
+          validationState={this.firstNameValidation()}
+          controlId='signup-form-firstname'
+        >
+          <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
+            * First Name:
+          </Col>
+
+          <Col sm={10}>
+            <FormControl
+              ref='firstnameForm'
+              name='firstName'
+              type='text'
+              placeholder='First Name'
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+          </Col>
+        </FormGroup>
+
+
+
+        <FormGroup
+          validationState={this.lastNameValidation()}
+          controlId='signup-form-lastname'
+        >
+          <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
+            * Last Name:
+          </Col>
+
+          <Col sm={10}>
+            <FormControl
+              ref='lastnameForm'
+              name='lastName'
+              type='text'
+              placeholder='Last Name'
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+          </Col>
+        </FormGroup>
+
 
         <FormGroup
           controlId='signup-form-submit'
         >
           <Col smOffset={2} sm={10}>
             <Button type='submit'>
-              LOGIN
+              SIGNUP
             </Button>
+            <FormControl.Static>
+              * Required
+            </FormControl.Static>
           </Col>
         </FormGroup>
 
+
+        {/*OVERLAYS FOR FORM FIELD VALIDATIONS. TARGETED VIA REF PROP*/}
+        <Overlay target={() => ReactDOM.findDOMNode(this.refs.usernameForm)} show={this.usernameValidation() === 'error'} animation placement='top'>
+          <Tooltip id='Username must be at least 6 characters long'>
+            Username must be at least 6 characters long
+          </Tooltip>
+        </Overlay>
+
+        <Overlay target={() => ReactDOM.findDOMNode(this.refs.emailForm)} show={this.emailValidation() === 'error'} animation placement='top'>
+          <Tooltip id='Please enter a valid email (e.g. john@smith.com)'>
+            Please enter a valid email (e.g. john@smith.com)
+          </Tooltip>
+        </Overlay>
+
+        <Overlay target={() => ReactDOM.findDOMNode(this.refs.passwordForm)} show={this.passwordValidation() === 'error'} animation placement='top'>
+          <Tooltip id='Password must contain 1 lower and upper case letter, 1 number, and 1 special character'>
+            Password must be 6 characters long, contain 1 lower and upper case letter, 1 number, and 1 special character
+          </Tooltip>
+        </Overlay>
+
+        <Overlay target={() => ReactDOM.findDOMNode(this.refs.firstnameForm)} show={this.firstNameValidation() === 'error'} animation placement='top'>
+          <Tooltip id='First Name must be at least 3 characters'>
+            First name must be at least 3 characters
+          </Tooltip>
+        </Overlay>
+
+        <Overlay target={() => ReactDOM.findDOMNode(this.refs.lastnameForm)} show={this.lastNameValidation() === 'error'} animation placement='top'>
+          <Tooltip id='Last Name must be at least 3 characters'>
+            Last name must be at least 3 characters
+          </Tooltip>
+        </Overlay>
       </Form>
     );
   }
