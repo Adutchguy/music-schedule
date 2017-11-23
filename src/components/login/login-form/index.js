@@ -8,7 +8,7 @@ class LoginForm extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      text: '',
       password: '',
       checked: false,
     };
@@ -32,27 +32,23 @@ class LoginForm extends Component{
     return(
       <Form onSubmit={this.handleSubmit} className='login-form' horizontal>
         <PageHeader className='login-form-header'> LOGIN </PageHeader>
-        <FormGroup
-          controlId='login-form-email'
-        >
+        <FormGroup controlId='login-form-username'>
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
-            Email
+            Username:
           </Col>
 
           <Col sm={10} md={10} lg={10}>
             <FormControl
-              type='email'
-              placeholder='EMAIL'
+              type='text'
+              placeholder='USERNAME'
               onChange={this.handleChange}
             />
           </Col>
         </FormGroup>
 
-        <FormGroup
-          controlId='login-form-password'
-        >
+        <FormGroup controlId='login-form-password'>
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
-            Password
+            Password:
           </Col>
 
           <Col sm={10} md={10} lg={10}>
@@ -64,9 +60,7 @@ class LoginForm extends Component{
           </Col>
         </FormGroup>
 
-        <FormGroup
-          controlId='login-form-checkbox'
-        >
+        <FormGroup controlId='login-form-checkbox'>
           <Col smOffset={2} sm={10}>
             <Checkbox
               type='checkbox'
@@ -77,13 +71,16 @@ class LoginForm extends Component{
           </Col>
         </FormGroup>
 
-        <FormGroup
-          controlId='login-form-submit'
-        >
+        <FormGroup controlId='login-form-submit'>
           <Col smOffset={2} sm={10}>
             <Button type='submit'>
               LOGIN
             </Button>
+          </Col>
+        </FormGroup>
+
+        <FormGroup controlId='login-form-signup'>
+          <Col smOffset={2} sm={10}>
             <LinkContainer to='/signup'>
               <a>Signup</a>
             </LinkContainer>
