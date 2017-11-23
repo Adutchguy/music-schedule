@@ -32,6 +32,35 @@ class SignupForm extends Component{
   }
 
 
+  // HANDLE EVENTS
+  handleChange(e){
+    e.target.name === 'checkbox' ?
+      this.setState({[e.target.name]: e.target.checked}) :
+      e.target.name === 'tempPass' ? this.setState({
+        tempPass: e.target.value,
+        password: passwordHashCreate(e.target.value),
+      }) :
+        this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    delete this.state.tempPass;
+    // TODO: insert logic for sending data
+    console.log('submitted state:\n',this.state);
+    this.setState({
+      username: '',
+      email: '',
+      tempPass: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+    });
+  }
+
+
+
+
   // VALIDATION FUNCTIONS
   usernameValidation(){
     let length = this.state.username.length;
@@ -105,32 +134,6 @@ class SignupForm extends Component{
 
 
 
-  // HANDLE EVENTS
-  handleChange(e){
-    e.target.name === 'checkbox' ?
-      this.setState({[e.target.name]: e.target.checked}) :
-      e.target.name === 'tempPass' ? this.setState({
-        tempPass: e.target.value,
-        password: passwordHashCreate(e.target.value),
-      }) :
-        this.setState({[e.target.name]: e.target.value});
-  }
-
-  handleSubmit(e){
-    e.preventDefault();
-    delete this.state.tempPass;
-    // TODO: insert logic for sending data and/or dispatching to redux store
-    console.log('submitted state:\n',this.state);
-    this.setState({
-      username: '',
-      email: '',
-      tempPass: '',
-      firstName: '',
-      lastName: '',
-    });
-  }
-
-
 
 
   // RENDER COMPONENT
@@ -142,7 +145,7 @@ class SignupForm extends Component{
 
         <FormGroup
           validationState={this.usernameValidation()}
-          controlId='signup-form-email'
+          controlId='signup-form-username'
         >
           <Col componentClass={ControlLabel} sm={2} md={2} lg={2}>
             * Username:
@@ -150,6 +153,7 @@ class SignupForm extends Component{
 
           <Col sm={10}>
             <FormControl
+              value={this.state.username}
               ref='usernameForm'
               name='username'
               type='text'
@@ -195,6 +199,7 @@ class SignupForm extends Component{
 
           <Col sm={10}>
             <FormControl
+              value={this.state.email}
               ref='emailForm'
               name='email'
               type='email'
@@ -217,6 +222,7 @@ class SignupForm extends Component{
 
           <Col sm={10}>
             <FormControl
+              value={this.state.firstName}
               ref='firstnameForm'
               name='firstName'
               type='text'
@@ -239,6 +245,7 @@ class SignupForm extends Component{
 
           <Col sm={10}>
             <FormControl
+              value={this.state.lastName}
               ref='lastnameForm'
               name='lastName'
               type='text'
