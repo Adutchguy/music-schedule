@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "3",
     "crypto-js": "^3.1.9-1",
+    "dotenv": "^4.0.0",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-render-if": "^0.1.0",
     "react": "^16.0.0",
