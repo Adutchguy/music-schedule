@@ -46,7 +46,7 @@ class NavButtons extends Component {
               </LinkContainer>
               {renderIf(this.props.loggedIn)(
                 <LinkContainer to='/'>
-                  <NavItem onClick={this.props.handleLogin}> LOGOUT </NavItem>
+                  <NavItem onClick={this.props.handleLogout}> LOGOUT </NavItem>
                 </LinkContainer>
               )}
             </Nav>
@@ -60,6 +60,7 @@ class NavButtons extends Component {
 
 NavButtons.propTypes = {
   handleLogin: PropTypes.func,
+  handleLogout: PropTypes.func,
   loggedIn: PropTypes.bool,
 };
 

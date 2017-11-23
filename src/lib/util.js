@@ -13,8 +13,8 @@ export const cookieTime = days => {
 };
 
 export const cookieCreate = (name, value, days) => {
-  let expires = days ? ` ${cookieTime(days)};` : '';
-  document.cookie = `${name}=${value};${expires} path='/'`;
+  let expireDate = days ? ` ${cookieTime(days)};` : '';
+  document.cookie = `${name}=${value}; expires=${expireDate} path='/'`;
 };
 
 export const sessionCookieCreate = (name, value) => {

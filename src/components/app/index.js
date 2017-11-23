@@ -13,6 +13,7 @@ import NavButtons from '../nav';
 import SongLog from '../song-log';
 import Schedule from '../schedule';
 import SongStats from '../song-stats';
+import {logoutRequest} from '../../action/auth.js';
 
 class App extends Component {
   constructor(props) {
@@ -23,10 +24,15 @@ class App extends Component {
 
     this.handleSelect = this.handleSelect.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleLogin(){
     this.setState({loggedIn:!this.state.loggedIn});
+  }
+
+  handleLogout(){
+    logoutRequest('X-IBCF-Token');
   }
 
   handleSelect(e) {
@@ -38,6 +44,7 @@ class App extends Component {
         <div>
           <NavButtons
             handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
             loggedIn={this.state.loggedIn}
           />
 
