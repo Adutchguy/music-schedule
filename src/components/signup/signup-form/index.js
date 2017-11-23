@@ -2,6 +2,7 @@ import './signup-form.css';
 // import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
+import {passwordHashCreate} from '../../../lib/pass.js';
 import {Form,FormGroup,FormControl,ControlLabel,Col,Button,PageHeader,Tooltip,Overlay} from 'react-bootstrap';
 
 
@@ -14,6 +15,7 @@ class SignupForm extends Component{
       email: '',
       firstName: '',
       lastName: '',
+      tempPass:'',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +27,12 @@ class SignupForm extends Component{
     this.firstNameValidation = this.firstNameValidation.bind(this);
   }
 
+  componentDidUpdate(){
+    console.log('-----------STATE----------',this.state);
+  }
+
+
+  // VALIDATION FUNCTIONS
   usernameValidation(){
     let length = this.state.username.length;
     if(length > 0){
@@ -80,7 +88,7 @@ class SignupForm extends Component{
   }
 
   passwordValidation() {
-    let pwd = this.state.password;
+    let pwd = this.state.tempPass;
     let psswd = /^(?=.*[0-9])(?=.*[!@#+=$%^&*])[a-zA-Z0-9!@#$+=%^&*]{6,16}$/;
     let validation = psswd.test(pwd);
     if(pwd.length > 0){
@@ -95,17 +103,37 @@ class SignupForm extends Component{
     }
   }
 
+
+
+  // HANDLE EVENTS
   handleChange(e){
     e.target.name === 'checkbox' ?
       this.setState({[e.target.name]: e.target.checked}) :
-      this.setState({[e.target.name]: e.target.value});
+      e.target.name === 'tempPass' ? this.setState({
+        tempPass: e.target.value,
+        password: passwordHashCreate(e.target.value),
+      }) :
+        this.setState({[e.target.name]: e.target.value});
   }
 
   handleSubmit(e){
     e.preventDefault();
-    console.log(this.state);
+    delete this.state.tempPass;
+    // TODO: insert logic for sending data and/or dispatching to redux store
+    console.log('submitted state:\n',this.state);
+    this.setState({
+      username: '',
+      email: '',
+      tempPass: '',
+      firstName: '',
+      lastName: '',
+    });
   }
 
+
+
+
+  // RENDER COMPONENT
   render(){
     return(
       <Form onSubmit={this.handleSubmit} className='signup-form' horizontal>
@@ -144,8 +172,9 @@ class SignupForm extends Component{
 
           <Col sm={10}>
             <FormControl
+              value={this.state.tempPass}
               ref='passwordForm'
-              name='password'
+              name='tempPass'
               type='password'
               placeholder='PASSWORD'
               onChange={this.handleChange}
