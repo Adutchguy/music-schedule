@@ -13,7 +13,7 @@ class NavButtons extends Component {
           <Navbar.Header>
             <Navbar.Brand>
               <LinkContainer to='/login'>
-                <a onClick={this.props.handleLogin}> LOGIN </a>
+                <a> LOGIN </a>
               </LinkContainer>
             </Navbar.Brand>
           </Navbar.Header>
