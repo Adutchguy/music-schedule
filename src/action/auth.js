@@ -5,7 +5,6 @@ import * as util from '../lib/util.js';
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const loginRequest = (userObject) => {
-  console.log(userObject);
   return superagent.get(`${API_URL}/api/userLogin`)
     .withCredentials()
     .auth(userObject.username, userObject.password)

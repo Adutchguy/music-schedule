@@ -47,7 +47,6 @@ class SignupForm extends Component{
     e.preventDefault();
     delete this.state.tempPass;
     signupRequest(this.state);
-    console.log('submitted state:\n',this.state);
     this.setState({
       username: '',
       email: '',

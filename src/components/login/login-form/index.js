@@ -1,6 +1,7 @@
 import './login-form.css';
 // import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Form,FormGroup,FormControl,ControlLabel,Col,Checkbox,Button,PageHeader} from 'react-bootstrap';
 
@@ -21,7 +22,6 @@ class LoginForm extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
   // HANDLE EVENTS
   handleChange(e){
     e.target.name === 'checked' ?
@@ -37,7 +37,6 @@ class LoginForm extends Component{
     e.preventDefault();
     delete this.state.tempPass;
     loginRequest(this.state);
-    console.log('submitted state:\n',this.state);
     this.setState({
       username: '',
       password: '',
@@ -119,7 +118,7 @@ class LoginForm extends Component{
 }
 
 LoginForm.propTypes = {
-
+  handleLogin: PropTypes.func,
 };
 
 export default LoginForm;

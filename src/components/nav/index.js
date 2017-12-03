@@ -62,6 +62,7 @@ NavButtons.propTypes = {
   handleLogin: PropTypes.func,
   handleLogout: PropTypes.func,
   loggedIn: PropTypes.bool,
+  redirect:PropTypes.func,
 };
 
 export default NavButtons;

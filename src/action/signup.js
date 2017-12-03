@@ -12,7 +12,6 @@ export const signupRequest = (userObject) => {
     .then(res => {
       util.sessionCookieCreate('X-IBCF-Token', res.text);
       if(res.text){
-        console.log('res.text:\n', res.text);
         return res;
       }
     })
