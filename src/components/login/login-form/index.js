@@ -1,9 +1,13 @@
 import './login-form.css';
 // import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {LinkContainer} from 'react-router-bootstrap';
-import {passwordHashCreate} from '../../../lib/pass.js';
 import {Form,FormGroup,FormControl,ControlLabel,Col,Checkbox,Button,PageHeader} from 'react-bootstrap';
+
+import {loginRequest} from '../../../action/auth.js';
+import {passwordHashCreate} from '../../../lib/util.js';
+
 
 class LoginForm extends Component{
   constructor(props) {
@@ -16,10 +20,6 @@ class LoginForm extends Component{
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidUpdate(){
-    console.log('-----------STATE----------',this.state);
   }
 
   // HANDLE EVENTS
@@ -36,8 +36,7 @@ class LoginForm extends Component{
   handleSubmit(e){
     e.preventDefault();
     delete this.state.tempPass;
-    // TODO: insert logic for sending data
-    console.log('submitted state:\n',this.state);
+    loginRequest(this.state);
     this.setState({
       username: '',
       password: '',
@@ -45,6 +44,9 @@ class LoginForm extends Component{
       tempPass: '',
     });
   }
+
+
+
 
   render(){
     return(
@@ -116,7 +118,7 @@ class LoginForm extends Component{
 }
 
 LoginForm.propTypes = {
-
+  handleLogin: PropTypes.func,
 };
 
 export default LoginForm;

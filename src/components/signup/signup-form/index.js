@@ -2,8 +2,11 @@ import './signup-form.css';
 // import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
-import {passwordHashCreate} from '../../../lib/pass.js';
 import {Form,FormGroup,FormControl,ControlLabel,Col,Button,PageHeader,Tooltip,Overlay} from 'react-bootstrap';
+
+import {signupRequest} from '../../../action/signup.js';
+import {passwordHashCreate} from '../../../lib/util.js';
+
 
 
 class SignupForm extends Component{
@@ -27,9 +30,6 @@ class SignupForm extends Component{
     this.firstNameValidation = this.firstNameValidation.bind(this);
   }
 
-  componentDidUpdate(){
-    console.log('-----------STATE----------',this.state);
-  }
 
 
   // HANDLE EVENTS
@@ -46,8 +46,7 @@ class SignupForm extends Component{
   handleSubmit(e){
     e.preventDefault();
     delete this.state.tempPass;
-    // TODO: insert logic for sending data
-    console.log('submitted state:\n',this.state);
+    signupRequest(this.state);
     this.setState({
       username: '',
       email: '',
